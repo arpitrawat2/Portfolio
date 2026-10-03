@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Video Editor Portfolio",
+  "schemaVersion": 1,
+  "description": "Interactive Dark & Cinematic Video Editor Portfolio featuring category filters, video player modals, before/after color grading slider, and contact form."
+}
+</script>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Mercer | Elite Video Editor & Post-Production Specialist</title>
+    <style>
+        :root {
+            --bg-primary: #090b10;
+            --bg-secondary: #12151c;
+            --bg-card: #181c25;
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --accent-amber: #f59e0b;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #262c38;
+            --timeline-track: #1f2430;
+            --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            color-scheme: dark;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header / Nav */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(9, 11, 16, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 5%;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--accent-cyan);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--text-main);
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: #000;
+            font-weight: 600;
+            padding: 0.6rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 5% 6rem;
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            padding: 0.35rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-muted);
+            background: var(--bg-secondary);
+        }
+
+        /* Simulated Video Timeline UI Hero Graphic */
+        .timeline-mockup {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .mockup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .mockup-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mockup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        .timeline-preview-screen {
+            width: 100%;
+            height: 200px;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-preview-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 242, 254, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.5);
+        }
+
+        .play-preview-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .play-preview-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #000;
+            margin-left: 2px;
+        }
+
+        .timeline-tracks {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .track {
+            height: 28px;
+            background: var(--timeline-track);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            font-size: 0.75rem;
+            font-family: monospace;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .track-video { border-left: 3px solid var(--accent-cyan); }
+        .track-audio { border-left: 3px solid var(--accent-amber); }
+        .track-vfx { border-left: 3px solid #a855f7; }
+
+        .clip {
+            position: absolute;
+            height: 20px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            font-size: 0.7rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .clip-1 { left: 10px; width: 120px; background: rgba(0, 242, 254, 0.25); border: 1px solid var(--accent-cyan); }
+        .clip-2 { left: 140px; width: 180px; background: rgba(0, 242, 254, 0.35); border: 1px solid var(--accent-cyan); }
+        .clip-3 { left: 30px; width: 240px; background: rgba(245, 158, 11, 0.25); border: 1px solid var(--accent-amber); }
+        .clip-4 { left: 80px; width: 150px; background: rgba(168, 85, 247, 0.25); border: 1px solid #a855f7; }
+
+        .playhead {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 45%;
+            width: 2px;
+            background: #ef4444;
+            z-index: 10;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            padding: 3rem 5%;
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            padding: 6rem 5%;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.6rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: rgba(0, 242, 254, 0.1);
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 242, 254, 0.5);
+        }
+
+        .card-thumbnail {
+            width: 100%;
+            height: 220px;
+            background: #111;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-card:hover .card-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .play-icon-badge {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+        }
+
+        .play-icon-badge svg {
+            width: 20px;
+            height: 20px;
+            fill: #000;
+            margin-left: 2px;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Before/After Section */
+        .showcase-section {
+            background: var(--bg-secondary);
+            padding: 6rem 5%;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            height: 450px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+
+        .comparison-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .comparison-before {
+            background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80');
+            filter: grayscale(80%) brightness(0.6) contrast(90%);
+        }
+
+        .comparison-after {
+            background-image: linear-gradient(rgba(0,242,254,0.15), rgba(79,172,254,0.15)), url('https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80');
+            width: 50%;
+            border-right: 2px solid var(--accent-cyan);
+            z-index: 2;
+        }
+
+        .comparison-slider-input {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: ew-resize;
+            z-index: 10;
+        }
+
+        .slider-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            box-shadow: 0 0 20px rgba(0,242,254,0.8);
+            pointer-events: none;
+        }
+
+        .slider-label {
+            position: absolute;
+            bottom: 1.5rem;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(6px);
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            z-index: 6;
+        }
+
+        .label-before { right: 1.5rem; }
+        .label-after { left: 1.5rem; color: var(--accent-cyan); }
+
+        /* Tech Stack / Software */
+        .tools-section {
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-4px);
+        }
+
+        .tool-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            background: var(--bg-secondary);
+            padding: 6rem 5%;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .testimonials-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .client-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #333;
+            overflow: hidden;
+        }
+
+        .client-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .client-details h5 {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .client-details span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 7rem 5%;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.08), rgba(79, 172, 254, 0.04));
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .contact-card h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card p {
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            text-align: left;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .form-group input, .form-group textarea {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 0.85rem 1rem;
+            border-radius: 10px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        .submit-btn {
+            grid-column: span 2;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: #000;
+            font-weight: 700;
+            padding: 1rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2.5rem 5%;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background: var(--bg-primary);
+        }
+
+        /* Video Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(16px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 900px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            z-index: 10;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .modal-video-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-video-container iframe, .modal-video-container video {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .modal-info {
+            padding: 2rem;
+        }
+
+        .modal-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 8rem;
+                gap: 3rem;
+            }
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+            .submit-btn, .form-group.full {
+                grid-column: span 1;
+            }
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">
+            <svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4zM4 18V8h16v10H4z"/></svg>
+            ALEX MERCER
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#portfolio">Work</a></li>
+                <li><a href="#showcase">Color & Grade</a></li>
+                <li><a href="#tools">Software</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact" class="cta-btn">Let's Talk</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+            <div class="hero-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--accent-cyan)"><circle cx="12" cy="12" r="10"/></svg>
+                Available for Q4 Projects & Retainers
+            </div>
+            <h1>Cinematic Pacing. <span>Unforgettable Impact.</span></h1>
+            <p>Elite video editor specializing in high-retention YouTube storytelling, high-end commercial ad campaigns, and cinematic narrative cuts that turn casual viewers into loyal fans.</p>
+            <div class="hero-actions">
+                <a href="#portfolio" class="cta-btn">Explore Showreel</a>
+                <a href="#contact" class="btn-secondary">Book a Call</a>
+            </div>
+        </div>
+        <div class="timeline-mockup">
+            <div class="mockup-header">
+                <div class="mockup-dots">
+                    <div class="mockup-dot dot-red"></div>
+                    <div class="mockup-dot dot-yellow"></div>
+                    <div class="mockup-dot dot-green"></div>
+                </div>
+                <span>Timeline_Final_v4_Master.prproj</span>
+                <span>00:02:45:12</span>
+            </div>
+            <div class="timeline-preview-screen">
+                <div class="play-preview-btn" onclick="openModal('Showreel 2026', 'Comprehensive showcase of high-end commercial cuts, cinematic color grading, and high-retention creator edits.', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+            </div>
+            <div class="timeline-tracks">
+                <div class="track track-video">
+                    <div class="clip clip-1">A-Roll_Master.mov</div>
+                    <div class="clip clip-2" style="left: 135px; width: 190px;">B-Roll_Drone_4K.mov</div>
+                </div>
+                <div class="track track-audio">
+                    <div class="clip clip-3">Spatial_Audio_Mix</div>
+                </div>
+                <div class="track track-vfx">
+                    <div class="clip clip-4">Color_Grade_LUT_Rec709</div>
+                </div>
+                <div class="playhead"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>50M+</h3>
+                <p>Total Views Generated</p>
+            </div>
+            <div class="stat-item">
+                <h3>120+</h3>
+                <p>Projects Delivered</p>
+            </div>
+            <div class="stat-item">
+                <h3>99.8%</h3>
+                <p>Client Satisfaction</p>
+            </div>
+            <div class="stat-item">
+                <h3>7+</h3>
+                <p>Years Experience</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio-section" id="portfolio">
+        <div class="section-header">
+            <h2>Featured Productions</h2>
+            <p>Explore curated works spanning top-tier creator channels, commercial brand films, and cinematic narrative edits.</p>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-btn active" onclick="filterPortfolio('all')">All Works</button>
+            <button class="filter-btn" onclick="filterPortfolio('youtube')">YouTube & Social</button>
+            <button class="filter-btn" onclick="filterPortfolio('commercial')">Commercials & Ads</button>
+            <button class="filter-btn" onclick="filterPortfolio('cinematic')">Cinematic & Narrative</button>
+        </div>
+
+        <div class="portfolio-grid" id="portfolioGrid">
+            <!-- Card 1: YouTube -->
+            <div class="portfolio-card" data-category="youtube" onclick="openModal('Tech Odyssey: The AI Revolution', 'High-retention documentary style video for a 2M+ subscriber tech creator. Achieved 74% retention rate at the 5-minute mark.', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                <div class="card-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Tech Odyssey">
+                    <span class="card-badge">YouTube & Social</span>
+                    <div class="card-overlay">
+                        <div class="play-icon-badge">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Tech Odyssey: The AI Revolution</h3>
+                    <p>Documentary essay style edit with custom motion graphics, seamless sound design, and aggressive pacing.</p>
+                    <div class="card-tags">
+                        <span class="tag">Premiere Pro</span>
+                        <span class="tag">After Effects</span>
+                        <span class="tag">Sound Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Commercial -->
+            <div class="portfolio-card" data-category="commercial" onclick="openModal('Apex Energy Drink - Ignite Your Peak', 'National commercial spot featuring dynamic action cuts, kinetic typography, and heavy bass sound design.', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                <div class="card-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Apex Energy">
+                    <span class="card-badge">Commercials & Ads</span>
+                    <div class="card-overlay">
+                        <div class="play-icon-badge">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Apex Energy: Ignite Your Peak</h3>
+                    <p>High-energy 30-second TV & social ad spot engineered for maximum conversion and brand recall.</p>
+                    <div class="card-tags">
+                        <span class="tag">DaVinci Resolve</span>
+                        <span class="tag">Color Grading</span>
+                        <span class="tag">VFX</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Cinematic -->
+            <div class="portfolio-card" data-category="cinematic" onclick="openModal('Echoes of Silence - Short Film', 'Award-winning narrative short film featuring naturalistic dialogue editing, atmospheric soundscape, and moody film emulation.', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                <div class="card-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80" alt="Echoes of Silence">
+                    <span class="card-badge">Cinematic & Narrative</span>
+                    <div class="card-overlay">
+                        <div class="play-icon-badge">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Echoes of Silence (Short Film)</h3>
+                    <p>Atmospheric narrative editing focusing on emotional resonance, pacing beats, and meticulous audio mixing.</p>
+                    <div class="card-tags">
+                        <span class="tag">Narrative Cut</span>
+                        <span class="tag">Fairlight Audio</span>
+                        <span class="tag">Film Emulation</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: YouTube -->
+            <div class="portfolio-card" data-category="youtube" onclick="openModal('Mastering Minimalist Design', 'Sleek educational video essay for a design channel with over 800k subscribers.', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                <div class="card-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80" alt="Minimalist Design">
+                    <span class="card-badge">YouTube & Social</span>
+                    <div class="card-overlay">
+                        <div class="play-icon-badge">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Mastering Minimalist Design</h3>
+                    <p>Clean graphic transitions, thoughtful b-roll integration, and professional voiceover cleanup.</p>
+                    <div class="card-tags">
+                        <span class="tag">Premiere Pro</span>
+                        <span class="tag">Motion Graphics</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Commercial -->
+            <div class="portfolio-card" data-category="commercial" onclick="openModal('Lumina Smart Home Campaign', 'Product launch commercial showcasing sleek hardware UI overlays and lifestyle footage integration.', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                <div class="card-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=800&q=80" alt="Lumina Smart Home">
+                    <span class="card-badge">Commercials & Ads</span>
+                    <div class="card-overlay">
+                        <div class="play-icon-badge">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Lumina Smart Home Campaign</h3>
+                    <p>Sleek tech product commercial with screen replacements, motion tracking, and premium color finish.</p>
+                    <div class="card-tags">
+                        <span class="tag">After Effects</span>
+                        <span class="tag">Motion Tracking</span>
+                        <span class="tag">Commercial</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6: Cinematic -->
+            <div class="portfolio-card" data-category="cinematic" onclick="openModal('Neon Tokyo - Cyberpunk Music Video', 'Vibrant music video featuring heavy color grading, stylized speed ramps, and beat-synced cuts.', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">
+                <div class="card-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80" alt="Neon Tokyo">
+                    <span class="card-badge">Cinematic & Narrative</span>
+                    <div class="card-overlay">
+                        <div class="play-icon-badge">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Neon Tokyo: Music Video</h3>
+                    <p>Stylized music video edit with custom teal & orange grading, speed ramping, and optical light leaks.</p>
+                    <div class="card-tags">
+                        <span class="tag">DaVinci Resolve</span>
+                        <span class="tag">Music Video</span>
+                        <span class="tag">Color Grade</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before / After Color Grading Showcase -->
+    <section class="showcase-section" id="showcase">
+        <div class="section-header">
+            <h2>The Power of Professional Color Grading</h2>
+            <p>Drag the slider to witness the transformation from flat raw LOG footage to a cinematic masterpiece.</p>
+        </div>
+        <div class="comparison-container">
+            <div class="comparison-img comparison-after" id="comparisonAfter"></div>
+            <div class="comparison-img comparison-before"></div>
+            <div class="slider-handle" id="sliderHandle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8l4 4-4 4M6 8l-4 4 4 4"/></svg>
+            </div>
+            <div class="slider-label label-before">Raw LOG Footage</div>
+            <div class="slider-label label-after">Cinematic Grade</div>
+            <input type="range" min="0" max="100" value="50" class="comparison-slider-input" id="comparisonSlider">
+        </div>
+    </section>
+
+    <!-- Software & Tech Stack -->
+    <section class="tools-section" id="tools">
+        <div class="section-header">
+            <h2>Post-Production Arsenal</h2>
+            <p>Industry-standard software and hardware workflows optimized for speed, precision, and uncompromised quality.</p>
+        </div>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <h4>Adobe Premiere Pro</h4>
+                <p>Primary NLE for high-speed rough cuts, multi-cam synchronization, and advanced timeline assembly.</p>
+            </div>
+            <div class="tool-card">
+                <h4>DaVinci Resolve Studio</h4>
+                <p>Advanced color grading, HDR scopes, node-based color trees, and Fairlight professional audio mixing.</p>
+            </div>
+            <div class="tool-card">
+                <h4>Adobe After Effects</h4>
+                <p>Custom motion graphics, kinetic typography, VFX compositing, and visual enhancements.</p>
+            </div>
+            <div class="tool-card">
+                <h4>Audition & Pro Tools</h4>
+                <p>Studio-grade audio restoration, noise reduction, vocal processing, and dynamic compression.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="section-header">
+            <h2>Trusted by Creators & Brands</h2>
+            <p>Here is what industry leaders and top content creators say about working with Alex.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p>"Alex completely transformed our channel's retention rate. Our average view duration went from 3:42 to 7:15 within the first month of working together. Absolute wizard with pacing and storytelling."</p>
+                <div class="client-info">
+                    <div class="client-avatar">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Sarah Jenkins">
+                    </div>
+                    <div class="client-details">
+                        <h5>Sarah Jenkins</h5>
+                        <span>Tech Creator (2.4M Subs)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p>"Working with Alex on our national product launch spot was seamless. He understood our brand guidelines immediately and delivered a cinematic commercial that exceeded all expectations."</p>
+                <div class="client-info">
+                    <div class="client-avatar">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Marcus Vance">
+                    </div>
+                    <div class="client-details">
+                        <h5>Marcus Vance</h5>
+                        <span>VP of Marketing, Apex Global</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p>"His color grading and sound design elevate every single frame. If you want your videos to look like a Hollywood film rather than standard YouTube vlogs, Alex is the editor you hire."</p>
+                <div class="client-info">
+                    <div class="client-avatar">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80" alt="Elena Rostova">
+                    </div>
+                    <div class="client-details">
+                        <h5>Elena Rostova</h5>
+                        <span>Documentary Filmmaker</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-card">
+            <h2>Let's Create Something Epic</h2>
+            <p>Have an upcoming project, YouTube channel retainer, or commercial campaign? Let's discuss how we can bring your vision to life.</p>
+            <form class="contact-form" onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="john@company.com" required>
+                </div>
+                <div class="form-group full">
+                    <label>Project Type & Details</label>
+                    <textarea placeholder="Tell me about your project, timeline, and goals..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Project Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Alex Mercer. All rights reserved. Crafted for Cinematic Excellence.</p>
+    </footer>
+
+    <!-- Video Modal -->
+    <div class="modal-overlay" id="videoModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModalDirect()">&times;</button>
+            <div class="modal-video-container">
+                <iframe id="modalIframe" src="" allowfullscreen></iframe>
+            </div>
+            <div class="modal-info">
+                <h3 id="modalTitle">Project Title</h3>
+                <p id="modalDesc">Project description goes here...</p>
+                <div class="card-tags">
+                    <span class="tag">Adobe Premiere Pro</span>
+                    <span class="tag">DaVinci Resolve</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Portfolio Filtering
+        function filterPortfolio(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const cards = document.querySelectorAll('.portfolio-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Before / After Slider Logic
+        const slider = document.getElementById('comparisonSlider');
+        const afterImg = document.getElementById('comparisonAfter');
+        const handle = document.getElementById('sliderHandle');
+
+        slider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            afterImg.style.width = val + '%';
+            handle.style.left = val + '%';
+        });
+
+        // Modal Logic
+        function openModal(title, desc, videoUrl) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalIframe').src = videoUrl;
+            document.getElementById('videoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModalDirect() {
+            document.getElementById('videoModal').classList.remove('active');
+            document.getElementById('modalIframe').src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeModal(e) {
+            if (e.target.id === 'videoModal') {
+                closeModalDirect();
+            }
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            alert('Thank you for your inquiry! Alex will get back to you within 24 hours.');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
